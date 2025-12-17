@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header -->
+      <header class="header">
+        <h1>📝 Notes App</h1>
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Search notes..." />
+        </div>
+      </header>
+
+      <!-- Notes Grid -->
+      <main class="notes-grid" id="notesGrid">
+        <!-- Notes will be rendered here -->
+      </main>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState">
+        <span class="empty-icon">📝</span>
+        <p>No notes yet!</p>
+        <p class="empty-subtitle">
+          Click the + button to create your first note
+        </p>
+      </div>
+
+      <!-- Add Button (FAB) -->
+      <button class="add-btn" id="addBtn">+</button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 id="modalTitle">Add New Note</h2>
+          <button class="close-btn" id="closeModal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="noteTitle">Title</label>
+            <input
+              type="text"
+              id="noteTitle"
+              placeholder="Enter note title..."
+            />
+          </div>
+          <div class="form-group">
+            <label for="noteContent">Content</label>
+            <textarea
+              id="noteContent"
+              rows="6"
+              placeholder="Write your note here..."
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="cancelBtn">Cancel</button>
+          <button class="btn btn-primary" id="saveBtn">💾 Save Note</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

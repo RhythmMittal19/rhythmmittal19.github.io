@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multi-Step Form</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <div class="card">
+        <!-- Step Indicator -->
+        <div class="steps-indicator">
+          <div class="step-item active" data-step="1">
+            <div class="step-circle">1</div>
+            <span class="step-label">Personal</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="step-item" data-step="2">
+            <div class="step-circle">2</div>
+            <span class="step-label">Contact</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="step-item" data-step="3">
+            <div class="step-circle">3</div>
+            <span class="step-label">Account</span>
+          </div>
+          <div class="step-line"></div>
+          <div class="step-item" data-step="4">
+            <div class="step-circle">4</div>
+            <span class="step-label">Confirm</span>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <form id="multiStepForm" novalidate>
+          <!-- Step 1: Personal Info -->
+          <div class="form-step active" data-step="1">
+            <div class="step-header">
+              <h2>Personal Information</h2>
+              <p>Tell us about yourself</p>
+            </div>
+
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input
+                type="text"
+                id="firstName"
+                placeholder="Enter first name"
+              />
+              <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" placeholder="Enter last name" />
+              <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="dob">Date of Birth</label>
+              <input type="date" id="dob" />
+              <span class="error-message"></span>
+            </div>
+          </div>
+
+          <!-- Step 2: Contact Info -->
+          <div class="form-step" data-step="2">
+            <div class="step-header">
+              <h2>Contact Information</h2>
+              <p>How can we reach you?</p>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" placeholder="Enter email" />
+              <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" placeholder="Enter phone number" />
+              <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="address">Address</label>
+              <input type="text" id="address" placeholder="Enter address" />
+              <span class="error-message"></span>
+            </div>
+          </div>
+
+          <!-- Step 3: Account Setup -->
+          <div class="form-step" data-step="3">
+            <div class="step-header">
+              <h2>Account Setup</h2>
+              <p>Create your login credentials</p>
+            </div>
+
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" id="username" placeholder="Choose username" />
+              <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Create password"
+              />
+              <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm password"
+              />
+              <span class="error-message"></span>
+            </div>
+          </div>
+
+          <!-- Step 4: Confirmation -->
+          <div class="form-step" data-step="4">
+            <div class="step-header">
+              <h2>Confirm Details</h2>
+              <p>Review your information</p>
+            </div>
+
+            <div class="summary">
+              <div class="summary-section">
+                <h3>Personal Info</h3>
+                <div class="summary-row">
+                  <span class="summary-label">Name</span>
+                  <span class="summary-value" id="summaryName">-</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-label">Date of Birth</span>
+                  <span class="summary-value" id="summaryDob">-</span>
+                </div>
+              </div>
+
+              <div class="summary-section">
+                <h3>Contact Info</h3>
+                <div class="summary-row">
+                  <span class="summary-label">Email</span>
+                  <span class="summary-value" id="summaryEmail">-</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-label">Phone</span>
+                  <span class="summary-value" id="summaryPhone">-</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-label">Address</span>
+                  <span class="summary-value" id="summaryAddress">-</span>
+                </div>
+              </div>
+
+              <div class="summary-section">
+                <h3>Account</h3>
+                <div class="summary-row">
+                  <span class="summary-label">Username</span>
+                  <span class="summary-value" id="summaryUsername">-</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation Buttons -->
+          <div class="form-nav">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="prevBtn"
+              disabled
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+              Previous
+            </button>
+            <button type="button" class="btn btn-primary" id="nextBtn">
+              Next
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="submitBtn"
+              style="display: none"
+            >
+              Submit
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+      <div class="modal-backdrop"></div>
+      <div class="modal-content">
+        <div class="modal-icon">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M20 6L9 17l-5-5" />
+          </svg>
+        </div>
+        <h2>Registration Complete!</h2>
+        <p>Your account has been created successfully.</p>
+        <button class="btn btn-primary" id="closeModal">Done</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

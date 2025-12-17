@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App | Atmospheric</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="weather-clear">
+    <!-- Animated Background Elements -->
+    <div class="background-effects">
+      <div class="gradient-bg"></div>
+      <div class="particles" id="particles"></div>
+      <div class="sun-rays" id="sunRays"></div>
+      <div class="clouds-bg">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+      </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+      <!-- Header / Search Section -->
+      <header class="app-header">
+        <div class="search-container">
+          <div class="search-box">
+            <svg
+              class="search-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="M21 21l-4.35-4.35" />
+            </svg>
+            <input
+              type="text"
+              class="search-input"
+              id="searchInput"
+              placeholder="Search city..."
+              autocomplete="off"
+            />
+            <button class="search-btn" id="searchBtn" aria-label="Search">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          <button
+            class="location-btn"
+            id="locationBtn"
+            aria-label="Use my location"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="3" />
+              <path d="M12 2v4M12 18v4M2 12h4M18 12h4" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Recent Searches Dropdown -->
+        <div class="recent-searches" id="recentSearches">
+          <div class="recent-header">
+            <span>Recent Searches</span>
+            <button class="clear-recent" id="clearRecent">Clear</button>
+          </div>
+          <ul class="recent-list" id="recentList">
+            <!-- Populated by JS -->
+          </ul>
+        </div>
+      </header>
+
+      <!-- Main Weather Card -->
+      <main class="weather-main">
+        <!-- Loading State -->
+        <div class="loading-state" id="loadingState">
+          <div class="skeleton-container">
+            <div class="skeleton skeleton-location"></div>
+            <div class="skeleton skeleton-temp"></div>
+            <div class="skeleton skeleton-desc"></div>
+            <div class="skeleton-grid">
+              <div class="skeleton skeleton-detail"></div>
+              <div class="skeleton skeleton-detail"></div>
+              <div class="skeleton skeleton-detail"></div>
+              <div class="skeleton skeleton-detail"></div>
+            </div>
+          </div>
+          <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Fetching weather data...</p>
+          </div>
+        </div>
+
+        <!-- Error State -->
+        <div class="error-state" id="errorState">
+          <div class="error-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 8v4M12 16h.01" />
+            </svg>
+          </div>
+          <h2 class="error-title">Oops! Something went wrong</h2>
+          <p class="error-message" id="errorMessage">
+            City not found. Please try another search.
+          </p>
+          <button class="retry-btn" id="retryBtn">Try Again</button>
+        </div>
+
+        <!-- Empty State (Initial) -->
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+              />
+              <circle cx="12" cy="12" r="5" />
+            </svg>
+          </div>
+          <h2 class="empty-title">Discover the Weather</h2>
+          <p class="empty-message">
+            Search for a city or use your current location to get started
+          </p>
+        </div>
+
+        <!-- Weather Content -->
+        <div class="weather-content" id="weatherContent">
+          <!-- Current Weather -->
+          <section class="current-weather">
+            <div class="location-info">
+              <h1 class="city-name" id="cityName">London</h1>
+              <p class="country-name" id="countryName">United Kingdom</p>
+              <p class="current-date" id="currentDate">Tuesday, Nov 12</p>
+            </div>
+
+            <div class="weather-hero">
+              <div class="weather-icon-container">
+                <img
+                  class="weather-icon"
+                  id="weatherIcon"
+                  src=""
+                  alt="Weather icon"
+                />
+                <!-- Dynamic animated icon -->
+              </div>
+
+              <div class="temperature-container">
+                <span class="temperature" id="temperature">18</span>
+                <div class="temp-unit-toggle">
+                  <button
+                    class="unit-btn active"
+                    id="celsiusBtn"
+                    data-unit="celsius"
+                  >
+                    °C
+                  </button>
+                  <span class="unit-divider">/</span>
+                  <button
+                    class="unit-btn"
+                    id="fahrenheitBtn"
+                    data-unit="fahrenheit"
+                  >
+                    °F
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="weather-description">
+              <p class="description-text" id="description">Partly Cloudy</p>
+              <p class="feels-like">
+                Feels like <span id="feelsLike">16</span>°
+              </p>
+            </div>
+          </section>
+
+          <!-- Weather Details Grid -->
+          <section class="weather-details">
+            <div class="detail-card">
+              <div class="detail-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M3 12h12a3 3 0 1 0-3-3" />
+                  <path d="M3 18h9a3 3 0 1 1-3 3" />
+                </svg>
+              </div>
+              <div class="detail-info">
+                <span class="detail-label">Wind</span>
+                <span class="detail-value" id="windSpeed">12 km/h</span>
+              </div>
+            </div>
+
+            <div class="detail-card">
+              <div class="detail-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M12 2C8 7 6 10 6 13a6 6 0 0012 0c0-3-2-6-6-11z" />
+                </svg>
+              </div>
+              <div class="detail-info">
+                <span class="detail-label">Humidity</span>
+                <span class="detail-value" id="humidity">65%</span>
+              </div>
+            </div>
+
+            <div class="detail-card">
+              <div class="detail-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="4" />
+                  <path
+                    d="M12 2v3M12 19v3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M2 12h3M19 12h3"
+                  />
+                </svg>
+              </div>
+              <div class="detail-info">
+                <span class="detail-label">UV Index</span>
+                <span class="detail-value" id="uvIndex">Moderate</span>
+              </div>
+            </div>
+
+            <div class="detail-card">
+              <div class="detail-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="7" />
+                  <path d="M12 12l3-3" />
+                </svg>
+              </div>
+              <div class="detail-info">
+                <span class="detail-label">Pressure</span>
+                <span class="detail-value" id="pressure">1015 hPa</span>
+              </div>
+            </div>
+
+            <div class="detail-card">
+              <div class="detail-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M17.5 19H9a7 7 0 116.71-9h1.79a4.5 4.5 0 110 9z" />
+                </svg>
+              </div>
+              <div class="detail-info">
+                <span class="detail-label">Clouds</span>
+                <span class="detail-value" id="clouds">40%</span>
+              </div>
+            </div>
+
+            <div class="detail-card">
+              <div class="detail-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M2 12s4-6 10-6 10 6 10 6" />
+                  <circle cx="12" cy="12" r="2" />
+                  <path d="M4 16h16" />
+                </svg>
+              </div>
+              <div class="detail-info">
+                <span class="detail-label">Visibility</span>
+                <span class="detail-value" id="visibility">10 km</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Sun Times -->
+          <section class="sun-times">
+            <div class="sun-card sunrise">
+              <div class="sun-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
+                  />
+                  <circle cx="12" cy="12" r="4" />
+                </svg>
+              </div>
+              <div class="sun-info">
+                <span class="sun-label">Sunrise</span>
+                <span class="sun-time" id="sunrise">6:42 AM</span>
+              </div>
+            </div>
+
+            <div class="sun-progress">
+              <div class="sun-arc">
+                <div class="sun-dot" id="sunDot"></div>
+                <svg class="arc-svg" viewBox="0 0 200 100">
+                  <path
+                    class="arc-bg"
+                    d="M10,100 Q100,0 190,100"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    class="arc-fill"
+                    id="arcFill"
+                    d="M10,100 Q100,0 190,100"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                  />
+                </svg>
+              </div>
+            </div>
+
+            <div class="sun-card sunset">
+              <div class="sun-icon sunset-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M12 10V2M4.93 10.93l2.83-2.83M2 18h4M18 18h4M19.07 10.93l-2.83-2.83"
+                  />
+                  <path d="M23 22H1" />
+                  <path d="M8 18a4 4 0 018 0" />
+                </svg>
+              </div>
+              <div class="sun-info">
+                <span class="sun-label">Sunset</span>
+                <span class="sun-time" id="sunset">5:24 PM</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- 5 Day Forecast -->
+          <section class="forecast-section">
+            <h2 class="section-title">5-Day Forecast</h2>
+            <div class="forecast-container" id="forecastContainer">
+              <!-- Forecast cards populated by JS -->
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="app-footer">
+        <p>Powered by OpenWeatherMap</p>
+        <p class="last-updated">
+          Last updated: <span id="lastUpdated">--</span>
+        </p>
+      </footer>
+    </div>
+
+    <!-- Load config first -->
+    <script src="config.js"></script>
+    <!-- Then load your main script -->
+    <script src="script.js"></script>
+  </body>
+</html>

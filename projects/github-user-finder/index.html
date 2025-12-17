@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Discover GitHub profiles with style. Search developers and explore their work, repositories, and contributions."
+    />
+    <title>DevScope | GitHub Profile Explorer</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://api.github.com" />
+  </head>
+  <body>
+    <!-- ═══════════════════════════════════════════════════════════════
+         ANIMATED BACKGROUND
+         ═══════════════════════════════════════════════════════════════ -->
+    <div class="animated-bg">
+      <div class="gradient-layer"></div>
+      <div class="glow-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+      </div>
+      <div class="grid-layer"></div>
+      <div class="noise-layer"></div>
+      <div class="particles-container" id="particlesContainer"></div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         COMMAND PALETTE (Cmd+K / Ctrl+K)
+         ═══════════════════════════════════════════════════════════════ -->
+    <div class="command-palette-overlay" id="commandPalette">
+      <div class="command-palette">
+        <div class="palette-header">
+          <svg
+            class="palette-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path d="M21 21l-4.35-4.35" />
+          </svg>
+          <input
+            type="text"
+            class="palette-input"
+            id="paletteInput"
+            placeholder="Search GitHub users..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <div class="palette-loader" id="paletteLoader">
+            <div class="loader-spinner"></div>
+          </div>
+          <kbd class="palette-shortcut">ESC</kbd>
+        </div>
+        <div class="palette-content">
+          <!-- Recent Searches -->
+          <div class="palette-section" id="paletteRecentSection">
+            <div class="palette-section-header">
+              <span class="palette-section-title">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                Recent Searches
+              </span>
+              <button class="palette-clear-btn" id="paletteClearHistory">
+                Clear
+              </button>
+            </div>
+            <ul class="palette-list" id="paletteRecentList">
+              <!-- Populated by JS -->
+            </ul>
+          </div>
+
+          <!-- Popular Developers -->
+          <div class="palette-section">
+            <div class="palette-section-header">
+              <span class="palette-section-title">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+                Popular Developers
+              </span>
+            </div>
+            <ul class="palette-list" id="paletteSuggestedList">
+              <li class="palette-item" data-username="torvalds">
+                <img
+                  src="https://avatars.githubusercontent.com/u/1024025?v=4"
+                  alt=""
+                  class="palette-avatar"
+                />
+                <div class="palette-info">
+                  <span class="palette-name">Linus Torvalds</span>
+                  <span class="palette-username">@torvalds</span>
+                </div>
+              </li>
+              <li class="palette-item" data-username="gaearon">
+                <img
+                  src="https://avatars.githubusercontent.com/u/810438?v=4"
+                  alt=""
+                  class="palette-avatar"
+                />
+                <div class="palette-info">
+                  <span class="palette-name">Dan Abramov</span>
+                  <span class="palette-username">@gaearon</span>
+                </div>
+              </li>
+              <li class="palette-item" data-username="sindresorhus">
+                <img
+                  src="https://avatars.githubusercontent.com/u/170270?v=4"
+                  alt=""
+                  class="palette-avatar"
+                />
+                <div class="palette-info">
+                  <span class="palette-name">Sindre Sorhus</span>
+                  <span class="palette-username">@sindresorhus</span>
+                </div>
+              </li>
+              <li class="palette-item" data-username="yyx990803">
+                <img
+                  src="https://avatars.githubusercontent.com/u/499550?v=4"
+                  alt=""
+                  class="palette-avatar"
+                />
+                <div class="palette-info">
+                  <span class="palette-name">Evan You</span>
+                  <span class="palette-username">@yyx990803</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="palette-section">
+            <div class="palette-section-header">
+              <span class="palette-section-title">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                </svg>
+                Quick Actions
+              </span>
+            </div>
+            <ul class="palette-list">
+              <li class="palette-item palette-action" data-action="theme">
+                <div class="palette-action-icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <circle cx="12" cy="12" r="5" />
+                    <path
+                      d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+                    />
+                  </svg>
+                </div>
+                <span>Toggle Theme</span>
+                <kbd>T</kbd>
+              </li>
+              <li class="palette-item palette-action" data-action="random">
+                <div class="palette-action-icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                    <circle cx="8" cy="8" r="1.5" fill="currentColor" />
+                    <circle cx="16" cy="8" r="1.5" fill="currentColor" />
+                    <circle cx="8" cy="16" r="1.5" fill="currentColor" />
+                    <circle cx="16" cy="16" r="1.5" fill="currentColor" />
+                    <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+                  </svg>
+                </div>
+                <span>Random Developer</span>
+                <kbd>R</kbd>
+              </li>
+              <li class="palette-item palette-action" data-action="shortcuts">
+                <div class="palette-action-icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path
+                      d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M8 16h8"
+                    />
+                  </svg>
+                </div>
+                <span>Keyboard Shortcuts</span>
+                <kbd>?</kbd>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         TOAST NOTIFICATIONS CONTAINER
+         ═══════════════════════════════════════════════════════════════ -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         KEYBOARD SHORTCUT HINT (Bottom Right)
+         ═══════════════════════════════════════════════════════════════ -->
+    <div class="keyboard-hint" id="keyboardHint"><kbd>/</kbd> to search</div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         MAIN APP WRAPPER
+         ═══════════════════════════════════════════════════════════════ -->
+    <div class="app-wrapper">
+      <!-- ─────────────────────────────────────────────────────────────
+           NAVIGATION
+           ───────────────────────────────────────────────────────────── -->
+      <nav class="main-nav" id="mainNav">
+        <a href="#" class="nav-brand" id="navBrand">
+          <div class="brand-logo">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"
+              />
+            </svg>
+            <span class="brand-glow"></span>
+          </div>
+          <span class="brand-text"
+            >Dev<span class="brand-accent">Scope</span></span
+          >
+          <span class="brand-badge">BETA</span>
+        </a>
+
+        <div class="nav-actions">
+          <!-- Search Trigger -->
+          <button
+            class="nav-btn search-trigger"
+            id="searchTrigger"
+            aria-label="Open search"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="M21 21l-4.35-4.35" />
+            </svg>
+            <span class="nav-btn-text">Search</span>
+            <kbd>⌘K</kbd>
+          </button>
+
+          <!-- History Button -->
+          <button class="nav-btn" id="historyBtn" aria-label="Search history">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+            <span class="nav-btn-text">History</span>
+            <span class="nav-badge" id="historyCount">0</span>
+          </button>
+
+          <!-- Shortcuts Button -->
+          <button
+            class="nav-btn icon-only"
+            id="shortcutsBtn"
+            aria-label="Keyboard shortcuts"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path
+                d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M8 16h8"
+              />
+            </svg>
+          </button>
+
+          <!-- Theme Toggle -->
+          <button
+            class="nav-btn icon-only theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle theme"
+          >
+            <svg
+              class="sun-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="5" />
+              <path
+                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+              />
+            </svg>
+            <svg
+              class="moon-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </button>
+
+          <!-- GitHub Link -->
+          <a
+            href="https://github.com"
+            target="_blank"
+            rel="noopener"
+            class="nav-btn icon-only"
+            aria-label="GitHub"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"
+              />
+            </svg>
+          </a>
+        </div>
+      </nav>
+
+      <!-- ─────────────────────────────────────────────────────────────
+           HERO SECTION
+           ───────────────────────────────────────────────────────────── -->
+      <header class="hero-section" id="heroSection">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            <span class="title-line">Discover</span>
+            <span class="title-line gradient-text">GitHub Developers</span>
+          </h1>
+          <p class="hero-subtitle">
+            Explore profiles, repositories, and contributions with beautiful
+            visualizations
+          </p>
+
+          <!-- Search Box -->
+          <div class="search-container">
+            <div class="search-box" id="searchBox">
+              <div class="search-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="M21 21l-4.35-4.35" />
+                </svg>
+              </div>
+
+              <input
+                type="text"
+                class="search-input"
+                id="searchInput"
+                placeholder="Enter GitHub username..."
+                autocomplete="off"
+                spellcheck="false"
+                aria-label="Search GitHub username"
+              />
+
+              <!-- Search Loader -->
+              <div class="search-loader" id="searchLoader">
+                <div class="loader-spinner"></div>
+              </div>
+
+              <!-- Clear Button -->
+              <button class="clear-btn" id="clearBtn" aria-label="Clear search">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+
+              <!-- Search Button -->
+              <button class="search-btn" id="searchBtn">
+                <span class="btn-text">Explore</span>
+                <svg
+                  class="btn-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+
+            <!-- Search Dropdown -->
+            <div class="search-dropdown" id="searchDropdown">
+              <!-- Recent Searches -->
+              <div class="dropdown-section" id="dropdownRecent">
+                <div class="dropdown-header">
+                  <span class="dropdown-title">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    Recent Searches
+                  </span>
+                  <button class="dropdown-action" id="clearRecentSearches">
+                    Clear all
+                  </button>
+                </div>
+                <ul class="dropdown-list" id="recentSearchList">
+                  <!-- Populated by JS -->
+                </ul>
+              </div>
+
+              <!-- Popular Developers -->
+              <div class="dropdown-section">
+                <div class="dropdown-header">
+                  <span class="dropdown-title">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <polygon
+                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                      />
+                    </svg>
+                    Popular Developers
+                  </span>
+                </div>
+                <ul class="dropdown-list" id="popularDevsList">
+                  <li class="dropdown-item" data-username="torvalds">
+                    <img
+                      src="https://avatars.githubusercontent.com/u/1024025?v=4"
+                      alt=""
+                      class="dropdown-avatar"
+                      loading="lazy"
+                    />
+                    <div class="dropdown-info">
+                      <span class="dropdown-name">Linus Torvalds</span>
+                      <span class="dropdown-username">@torvalds</span>
+                    </div>
+                  </li>
+                  <li class="dropdown-item" data-username="gaearon">
+                    <img
+                      src="https://avatars.githubusercontent.com/u/810438?v=4"
+                      alt=""
+                      class="dropdown-avatar"
+                      loading="lazy"
+                    />
+                    <div class="dropdown-info">
+                      <span class="dropdown-name">Dan Abramov</span>
+                      <span class="dropdown-username">@gaearon</span>
+                    </div>
+                  </li>
+                  <li class="dropdown-item" data-username="sindresorhus">
+                    <img
+                      src="https://avatars.githubusercontent.com/u/170270?v=4"
+                      alt=""
+                      class="dropdown-avatar"
+                      loading="lazy"
+                    />
+                    <div class="dropdown-info">
+                      <span class="dropdown-name">Sindre Sorhus</span>
+                      <span class="dropdown-username">@sindresorhus</span>
+                    </div>
+                  </li>
+                  <li class="dropdown-item" data-username="yyx990803">
+                    <img
+                      src="https://avatars.githubusercontent.com/u/499550?v=4"
+                      alt=""
+                      class="dropdown-avatar"
+                      loading="lazy"
+                    />
+                    <div class="dropdown-info">
+                      <span class="dropdown-name">Evan You</span>
+                      <span class="dropdown-username">@yyx990803</span>
+                    </div>
+                  </li>
+                  <li class="dropdown-item" data-username="addyosmani">
+                    <img
+                      src="https://avatars.githubusercontent.com/u/110953?v=4"
+                      alt=""
+                      class="dropdown-avatar"
+                      loading="lazy"
+                    />
+                    <div class="dropdown-info">
+                      <span class="dropdown-name">Addy Osmani</span>
+                      <span class="dropdown-username">@addyosmani</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Stats (After Search) -->
+          <div class="quick-stats" id="quickStats">
+            <div class="quick-stat">
+              <span class="quick-stat-value" id="quickRepos">--</span>
+              <span class="quick-stat-label">Repos</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="quick-stat">
+              <span class="quick-stat-value" id="quickFollowers">--</span>
+              <span class="quick-stat-label">Followers</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="quick-stat">
+              <span class="quick-stat-value" id="quickStars">--</span>
+              <span class="quick-stat-label">Stars</span>
+            </div>
+          </div>
+
+          <!-- Recent Searches Tags (Hero) -->
+          <div class="recent-searches-hero" id="recentSearchesHero">
+            <span class="recent-label">Recent:</span>
+            <div class="recent-tags" id="recentTagsHero">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator" id="scrollIndicator">
+          <span>Scroll to explore</span>
+          <div class="scroll-arrow">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M12 5v14M19 12l-7 7-7-7" />
+            </svg>
+          </div>
+        </div>
+      </header>
+
+      <!-- ─────────────────────────────────────────────────────────────
+           MAIN CONTENT
+           ───────────────────────────────────────────────────────────── -->
+      <main class="main-content" id="mainContent">
+        <!-- ═══════════════════════════════════════════════════════════
+             EMPTY STATE
+             ═══════════════════════════════════════════════════════════ -->
+        <section class="state-container empty-state show" id="emptyState">
+          <div class="empty-visual">
+            <div class="empty-icon-container">
+              <svg class="empty-icon" viewBox="0 0 120 120" fill="none">
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="30"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  class="search-circle"
+                />
+                <line
+                  x1="72"
+                  y1="72"
+                  x2="95"
+                  y2="95"
+                  stroke="currentColor"
+                  stroke-width="4"
+                  stroke-linecap="round"
+                  class="search-handle"
+                />
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="12"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-dasharray="4 4"
+                  class="inner-circle"
+                />
+                <circle
+                  cx="50"
+                  cy="45"
+                  r="6"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <path
+                  d="M38 62c0-6.627 5.373-12 12-12s12 5.373 12 12"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+              <div class="empty-particles">
+                <span></span><span></span><span></span><span></span
+                ><span></span>
+              </div>
+            </div>
+          </div>
+          <h2 class="state-title">Start Your Search</h2>
+          <p class="state-message">
+            Enter a GitHub username above to explore their profile,
+            repositories, and contributions.
+          </p>
+          <div class="empty-shortcuts">
+            <span class="shortcut-item"><kbd>/</kbd> Focus search</span>
+            <span class="shortcut-item"><kbd>⌘K</kbd> Command palette</span>
+            <span class="shortcut-item"><kbd>↵</kbd> Search</span>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             LOADING STATE
+             ═══════════════════════════════════════════════════════════ -->
+        <section class="state-container loading-state" id="loadingState">
+          <div class="skeleton-grid">
+            <!-- Profile Skeleton -->
+            <div class="skeleton-card skeleton-profile">
+              <div class="skeleton-cover"></div>
+              <div class="skeleton-profile-main">
+                <div class="skeleton skeleton-avatar"></div>
+                <div class="skeleton-info">
+                  <div class="skeleton skeleton-name"></div>
+                  <div class="skeleton skeleton-username"></div>
+                  <div class="skeleton skeleton-bio"></div>
+                  <div class="skeleton skeleton-bio short"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stats Skeleton -->
+            <div class="skeleton-stats">
+              <div class="skeleton skeleton-stat"></div>
+              <div class="skeleton skeleton-stat"></div>
+              <div class="skeleton skeleton-stat"></div>
+              <div class="skeleton skeleton-stat"></div>
+            </div>
+
+            <!-- Bento Skeleton -->
+            <div class="skeleton-bento">
+              <div class="skeleton skeleton-bento-item"></div>
+              <div class="skeleton skeleton-bento-item wide"></div>
+              <div class="skeleton skeleton-bento-item"></div>
+              <div class="skeleton skeleton-bento-item wide"></div>
+            </div>
+
+            <!-- Repos Skeleton -->
+            <div class="skeleton-repos">
+              <div class="skeleton skeleton-repo"></div>
+              <div class="skeleton skeleton-repo"></div>
+              <div class="skeleton skeleton-repo"></div>
+              <div class="skeleton skeleton-repo"></div>
+            </div>
+          </div>
+
+          <div class="loading-info">
+            <div class="loading-spinner">
+              <div class="spinner-ring"></div>
+              <div class="spinner-ring"></div>
+              <div class="spinner-ring"></div>
+            </div>
+            <p class="loading-text">
+              Fetching profile data<span class="loading-dots"></span>
+            </p>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             ERROR STATE
+             ═══════════════════════════════════════════════════════════ -->
+        <section class="state-container error-state" id="errorState">
+          <div class="error-visual">
+            <div class="error-icon-container">
+              <svg
+                class="error-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M16 16s-1.5-2-4-2-4 2-4 2" />
+                <line x1="9" y1="9" x2="9.01" y2="9" stroke-width="2" />
+                <line x1="15" y1="9" x2="15.01" y2="9" stroke-width="2" />
+              </svg>
+              <div class="error-pulse"></div>
+            </div>
+          </div>
+          <h2 class="state-title error-title" id="errorTitle">
+            User Not Found
+          </h2>
+          <p class="state-message error-message" id="errorMessage">
+            We couldn't find a GitHub user with that username. Please check the
+            spelling and try again.
+          </p>
+          <div class="error-actions">
+            <button class="action-btn secondary" id="retryBtn">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M1 4v6h6" />
+                <path d="M3.51 15a9 9 0 102.13-9.36L1 10" />
+              </svg>
+              Try Again
+            </button>
+            <button class="action-btn primary" id="newSearchBtn">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="M21 21l-4.35-4.35" />
+              </svg>
+              New Search
+            </button>
+          </div>
+          <div class="error-suggestions">
+            <p>Try searching for:</p>
+            <div class="suggestion-chips">
+              <button class="suggestion-chip" data-username="octocat">
+                octocat
+              </button>
+              <button class="suggestion-chip" data-username="torvalds">
+                torvalds
+              </button>
+              <button class="suggestion-chip" data-username="gaearon">
+                gaearon
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             RATE LIMIT STATE
+             ═══════════════════════════════════════════════════════════ -->
+        <section class="state-container rate-limit-state" id="rateLimitState">
+          <div class="rate-limit-visual">
+            <svg
+              class="rate-limit-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+            <div class="rate-limit-pulse"></div>
+          </div>
+          <h2 class="state-title">Rate Limit Exceeded</h2>
+          <p class="state-message">
+            GitHub API has a limit of 60 requests per hour for unauthenticated
+            users. Please wait before making more requests.
+          </p>
+          <div class="rate-limit-timer">
+            <span>Reset in:</span>
+            <span class="timer-value" id="rateLimitTimer">--:--</span>
+          </div>
+          <div class="rate-limit-progress">
+            <div class="progress-bar" id="rateLimitProgress"></div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             PROFILE CONTENT (SUCCESS STATE)
+             ═══════════════════════════════════════════════════════════ -->
+        <section class="profile-content" id="profileContent">
+          <!-- Profile Header Card -->
+          <div class="profile-header-card" id="profileCard">
+            <div class="profile-cover">
+              <div class="cover-gradient"></div>
+              <div class="cover-pattern"></div>
+            </div>
+
+            <div class="profile-main">
+              <!-- Avatar Section -->
+              <div class="avatar-section">
+                <div class="avatar-wrapper">
+                  <img
+                    src=""
+                    alt=""
+                    class="profile-avatar"
+                    id="profileAvatar"
+                  />
+                  <div class="avatar-ring"></div>
+                  <div class="avatar-glow"></div>
+                </div>
+                <div class="profile-badges" id="profileBadges">
+                  <!-- Badges populated by JS -->
+                </div>
+              </div>
+
+              <!-- Profile Info -->
+              <div class="profile-info">
+                <div class="name-row">
+                  <h1 class="profile-name" id="profileName">Loading...</h1>
+                  <span class="profile-type" id="profileType">User</span>
+                </div>
+
+                <a
+                  href="#"
+                  class="profile-username"
+                  id="profileUsername"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <span>@username</span>
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"
+                    />
+                  </svg>
+                </a>
+
+                <p class="profile-bio" id="profileBio">
+                  <span class="bio-text">No bio available</span>
+                  <span class="bio-cursor">|</span>
+                </p>
+
+                <div class="profile-meta" id="profileMeta">
+                  <div class="meta-item" id="metaCompany">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M3 21h18M9 8h1M9 12h1M9 16h1M14 8h1M14 12h1M14 16h1M5 21V5a2 2 0 012-2h10a2 2 0 012 2v16"
+                      />
+                    </svg>
+                    <span id="companyText"></span>
+                  </div>
+                  <div class="meta-item" id="metaLocation">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    <span id="locationText"></span>
+                  </div>
+                  <div class="meta-item" id="metaBlog">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"
+                      />
+                      <path
+                        d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"
+                      />
+                    </svg>
+                    <a
+                      href="#"
+                      id="blogLink"
+                      target="_blank"
+                      rel="noopener"
+                    ></a>
+                  </div>
+                  <div class="meta-item" id="metaTwitter">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path
+                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                      />
+                    </svg>
+                    <a
+                      href="#"
+                      id="twitterLink"
+                      target="_blank"
+                      rel="noopener"
+                    ></a>
+                  </div>
+                  <div class="meta-item" id="metaJoined">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                      <line x1="16" y1="2" x2="16" y2="6" />
+                      <line x1="8" y1="2" x2="8" y2="6" />
+                      <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                    <span id="joinedText"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Profile Actions -->
+              <div class="profile-actions">
+                <a
+                  href="#"
+                  class="action-btn primary"
+                  id="followGithubBtn"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                    <circle cx="8.5" cy="7" r="4" />
+                    <line x1="20" y1="8" x2="20" y2="14" />
+                    <line x1="23" y1="11" x2="17" y2="11" />
+                  </svg>
+                  <span>Follow</span>
+                </a>
+                <button class="action-btn secondary" id="shareProfileBtn">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <circle cx="18" cy="5" r="3" />
+                    <circle cx="6" cy="12" r="3" />
+                    <circle cx="18" cy="19" r="3" />
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                  </svg>
+                  <span>Share</span>
+                </button>
+                <button
+                  class="action-btn icon-only"
+                  id="copyLinkBtn"
+                  aria-label="Copy profile link"
+                >
+                  <svg
+                    class="copy-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                    <path
+                      d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"
+                    />
+                  </svg>
+                  <svg
+                    class="check-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats Section -->
+          <div class="stats-section" id="statsSection">
+            <div class="stat-card" data-stat="repos">
+              <div class="stat-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"
+                  />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-value counter" id="statRepos" data-target="0"
+                  >0</span
+                >
+                <span class="stat-label">Repositories</span>
+              </div>
+            </div>
+
+            <div class="stat-card" data-stat="followers">
+              <div class="stat-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span
+                  class="stat-value counter"
+                  id="statFollowers"
+                  data-target="0"
+                  >0</span
+                >
+                <span class="stat-label">Followers</span>
+              </div>
+            </div>
+
+            <div class="stat-card" data-stat="following">
+              <div class="stat-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                  <circle cx="8.5" cy="7" r="4" />
+                  <line x1="20" y1="8" x2="20" y2="14" />
+                  <line x1="23" y1="11" x2="17" y2="11" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span
+                  class="stat-value counter"
+                  id="statFollowing"
+                  data-target="0"
+                  >0</span
+                >
+                <span class="stat-label">Following</span>
+              </div>
+            </div>
+
+            <div class="stat-card" data-stat="gists">
+              <div class="stat-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="16 18 22 12 16 6" />
+                  <polyline points="8 6 2 12 8 18" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-value counter" id="statGists" data-target="0"
+                  >0</span
+                >
+                <span class="stat-label">Gists</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bento Grid -->
+          <div class="bento-grid" id="bentoGrid">
+            <!-- Total Stars Card -->
+            <div class="bento-card stars-card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <polygon
+                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                    />
+                  </svg>
+                  Total Stars
+                </h3>
+              </div>
+              <div class="stars-display">
+                <span
+                  class="stars-value counter"
+                  id="totalStars"
+                  data-target="0"
+                  >0</span
+                >
+                <div class="stars-celebration" id="starsCelebration">
+                  <span class="confetti"></span>
+                  <span class="confetti"></span>
+                  <span class="confetti"></span>
+                  <span class="confetti"></span>
+                  <span class="confetti"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Languages Card -->
+            <div class="bento-card languages-card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                  </svg>
+                  Top Languages
+                </h3>
+              </div>
+              <div class="languages-chart" id="languagesChart">
+                <!-- Language bars populated by JS -->
+                <div class="languages-empty">
+                  <p>No language data available</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Activity Card -->
+            <div class="bento-card activity-card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                  </svg>
+                  Recent Activity
+                </h3>
+              </div>
+              <div class="activity-list" id="activityList">
+                <!-- Activity items populated by JS -->
+                <div class="activity-empty">
+                  <p>No recent public activity</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Organizations Card -->
+            <div class="bento-card orgs-card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path
+                      d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"
+                    />
+                  </svg>
+                  Organizations
+                </h3>
+                <span class="card-count" id="orgsCount">0</span>
+              </div>
+              <div class="orgs-grid" id="orgsGrid">
+                <!-- Organization avatars populated by JS -->
+                <div class="orgs-empty">
+                  <p>No public organizations</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Followers Preview Card -->
+            <div class="bento-card followers-card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path
+                      d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"
+                    />
+                  </svg>
+                  Followers
+                </h3>
+                <a
+                  href="#"
+                  class="view-all-link"
+                  id="viewAllFollowers"
+                  target="_blank"
+                  rel="noopener"
+                  >View all</a
+                >
+              </div>
+              <div class="followers-preview" id="followersPreview">
+                <!-- Follower avatars populated by JS -->
+                <div class="followers-empty">
+                  <p>No followers yet</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Repositories Section -->
+          <div class="repos-section" id="reposSection">
+            <div class="repos-header">
+              <h2 class="section-title">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"
+                  />
+                </svg>
+                Repositories
+              </h2>
+
+              <div class="repos-controls">
+                <!-- Filter Dropdown -->
+                <div class="dropdown-container" id="filterContainer">
+                  <button class="dropdown-trigger" id="filterTrigger">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <polygon
+                        points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"
+                      />
+                    </svg>
+                    <span id="filterLabel">All</span>
+                    <svg
+                      class="chevron"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </button>
+                  <div class="dropdown-menu" id="filterMenu">
+                    <button class="dropdown-option active" data-filter="all">
+                      All Repositories
+                    </button>
+                    <button class="dropdown-option" data-filter="source">
+                      Sources
+                    </button>
+                    <button class="dropdown-option" data-filter="fork">
+                      Forks
+                    </button>
+                    <button class="dropdown-option" data-filter="archived">
+                      Archived
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Sort Dropdown -->
+                <div class="dropdown-container" id="sortContainer">
+                  <button class="dropdown-trigger" id="sortTrigger">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <line x1="4" y1="6" x2="20" y2="6" />
+                      <line x1="4" y1="12" x2="16" y2="12" />
+                      <line x1="4" y1="18" x2="12" y2="18" />
+                    </svg>
+                    <span id="sortLabel">Updated</span>
+                    <svg
+                      class="chevron"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </button>
+                  <div class="dropdown-menu" id="sortMenu">
+                    <button class="dropdown-option active" data-sort="updated">
+                      Recently Updated
+                    </button>
+                    <button class="dropdown-option" data-sort="stars">
+                      Most Stars
+                    </button>
+                    <button class="dropdown-option" data-sort="forks">
+                      Most Forks
+                    </button>
+                    <button class="dropdown-option" data-sort="name">
+                      Name (A-Z)
+                    </button>
+                    <button class="dropdown-option" data-sort="created">
+                      Recently Created
+                    </button>
+                  </div>
+                </div>
+
+                <a
+                  href="#"
+                  class="view-all-btn"
+                  id="viewAllRepos"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  View on GitHub
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Repos Grid -->
+            <div class="repos-grid" id="reposGrid">
+              <!-- Repository cards populated by JS -->
+            </div>
+
+            <!-- Load More -->
+            <div class="load-more-container" id="loadMoreContainer">
+              <button class="load-more-btn" id="loadMoreBtn">
+                <span class="load-more-text">Load More Repositories</span>
+                <span class="load-more-loader">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                </span>
+                <svg
+                  class="load-more-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+              <span class="repos-count">
+                Showing <span id="showingCount">0</span> of
+                <span id="totalReposCount">0</span>
+              </span>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- ─────────────────────────────────────────────────────────────
+           FOOTER
+           ───────────────────────────────────────────────────────────── -->
+      <footer class="app-footer">
+        <div class="footer-content">
+          <p class="footer-text">
+            Built with <span class="heart">❤️</span> using
+            <a
+              href="https://docs.github.com/en/rest"
+              target="_blank"
+              rel="noopener"
+              >GitHub API</a
+            >
+          </p>
+          <div class="footer-stats">
+            <span class="api-status" id="apiStatus">
+              <span class="status-dot"></span>
+              <span id="apiStatusText">Checking...</span>
+            </span>
+            <span class="rate-limit-info" id="rateLimitInfo">
+              Rate: <span id="rateLimitRemaining">--</span>/<span
+                id="rateLimitTotal"
+                >60</span
+              >
+            </span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         KEYBOARD SHORTCUTS MODAL
+         ═══════════════════════════════════════════════════════════════ -->
+    <div class="modal-overlay" id="shortcutsModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Keyboard Shortcuts</h2>
+          <button
+            class="modal-close"
+            id="closeShortcutsModal"
+            aria-label="Close"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="shortcut-group">
+            <h3>Search</h3>
+            <div class="shortcut-row">
+              <span class="shortcut-keys"><kbd>/</kbd></span>
+              <span class="shortcut-desc">Focus search input</span>
+            </div>
+            <div class="shortcut-row">
+              <span class="shortcut-keys"><kbd>⌘</kbd><kbd>K</kbd></span>
+              <span class="shortcut-desc">Open command palette</span>
+            </div>
+            <div class="shortcut-row">
+              <span class="shortcut-keys"><kbd>Enter</kbd></span>
+              <span class="shortcut-desc">Submit search</span>
+            </div>
+            <div class="shortcut-row">
+              <span class="shortcut-keys"><kbd>Esc</kbd></span>
+              <span class="shortcut-desc">Clear / Close modal</span>
+            </div>
+          </div>
+          <div class="shortcut-group">
+            <h3>Navigation</h3>
+            <div class="shortcut-row">
+              <span class="shortcut-keys"><kbd>G</kbd> then <kbd>H</kbd></span>
+              <span class="shortcut-desc">Go to user's GitHub</span>
+            </div>
+            <div class="shortcut-row">
+              <span class="shortcut-keys"><kbd>G</kbd> then <kbd>R</kbd></span>
+              <span class="shortcut-desc">Go to repositories</span>
+            </div>
+          </div>
+          <div class="shortcut-group">
+            <h3>Actions</h3>
+            <div class="shortcut-row">
+              <span class="shortcut-keys"><kbd>T</kbd></span>
+              <span class="shortcut-desc">Toggle theme</span>
+            </div>
+            <div class="shortcut-row">
+              <span class="shortcut-keys"><kbd>R</kbd></span>
+              <span class="shortcut-desc">Random developer</span>
+            </div>
+            <div class="shortcut-row">
+              <span class="shortcut-keys"><kbd>C</kbd></span>
+              <span class="shortcut-desc">Copy profile link</span>
+            </div>
+            <div class="shortcut-row">
+              <span class="shortcut-keys"><kbd>?</kbd></span>
+              <span class="shortcut-desc">Show this help</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         HISTORY MODAL
+         ═══════════════════════════════════════════════════════════════ -->
+    <div class="modal-overlay" id="historyModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Search History</h2>
+          <button class="modal-close" id="closeHistoryModal" aria-label="Close">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="history-list" id="historyList">
+            <!-- Populated by JS -->
+            <div class="history-empty" id="historyEmpty">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              <p>No search history yet</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="clear-history-btn" id="clearAllHistoryBtn">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <polyline points="3 6 5 6 21 6" />
+              <path
+                d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"
+              />
+              <line x1="10" y1="11" x2="10" y2="17" />
+              <line x1="14" y1="11" x2="14" y2="17" />
+            </svg>
+            Clear All History
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SHARE MODAL
+         ═══════════════════════════════════════════════════════════════ -->
+    <div class="modal-overlay" id="shareModal">
+      <div class="modal-content modal-sm">
+        <div class="modal-header">
+          <h2 class="modal-title">Share Profile</h2>
+          <button class="modal-close" id="closeShareModal" aria-label="Close">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="share-options">
+            <button class="share-option" id="shareTwitter">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                />
+              </svg>
+              <span>Twitter / X</span>
+            </button>
+            <button class="share-option" id="shareLinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                />
+              </svg>
+              <span>LinkedIn</span>
+            </button>
+            <button class="share-option" id="shareCopyLink">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"
+                />
+                <path
+                  d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"
+                />
+              </svg>
+              <span>Copy Link</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ripple Effect Container -->
+    <div class="ripple-container" id="rippleContainer"></div>
+
+    <!-- Load files in correct ORDER (dependencies first!) -->
+    <script src="js/config.js"></script>
+    <!-- 1. Constants (no dependencies) -->
+    <script src="js/utils.js"></script>
+    <!-- 2. Helpers (may use config) -->
+    <script src="js/storage.js"></script>
+    <!-- 3. Storage (may use config) -->
+    <script src="js/api.js"></script>
+    <!-- 4. API (uses config) -->
+    <script src="js/ui.js"></script>
+    <!-- 5. UI functions -->
+    <script src="js/app.js"></script>
+    <!-- 6. Main app (uses everything) -->
+  </body>
+</html>

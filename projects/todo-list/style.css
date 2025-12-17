@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+}
+
+.todo-container {
+  background: #0f0f1a;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  max-width: 450px;
+  width: 90%;
+}
+
+h1 {
+  color: #60a5fa;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.input-section {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#todo-input {
+  flex: 1;
+  padding: 15px 20px;
+  border: 2px solid #2a2a4a;
+  border-radius: 10px;
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+#todo-input:focus {
+  border-color: #60a5fa;
+}
+
+#todo-input::placeholder {
+  color: #666;
+}
+
+#add-btn {
+  padding: 15px 25px;
+  border: none;
+  border-radius: 10px;
+  background: #60a5fa;
+  color: #0f0f1a;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#add-btn:hover {
+  background: #3b82f6;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #2a2a4a;
+}
+
+.stats span {
+  color: #888;
+  font-size: 14px;
+}
+
+#task-count {
+  color: #60a5fa;
+  font-weight: bold;
+}
+
+#clear-all {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#clear-all:hover {
+  background: #dc2626;
+}
+
+.todo-list {
+  list-style: none;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: #1a1a2e;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.todo-item:hover {
+  background: #22223a;
+}
+
+.todo-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #60a5fa;
+}
+
+.todo-item span {
+  flex: 1;
+  color: #fff;
+  font-size: 16px;
+}
+
+.todo-item.completed span {
+  text-decoration: line-through;
+  color: #666;
+}
+
+.delete-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background: #2a2a4a;
+  color: #ef4444;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.delete-btn:hover {
+  background: #ef4444;
+  color: #fff;
+}
+
+.empty-message {
+  text-align: center;
+  color: #666;
+  padding: 30px;
+  font-style: italic;
+}
+
+.empty-message.hide {
+  display: none;
+}
