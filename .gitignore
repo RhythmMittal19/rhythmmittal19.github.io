@@ -1,0 +1,12 @@
+# API Keys — never push these
+projects/weather-app/config.js
+projects/github-user-finder/js/config.js
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
+*~

@@ -1,386 +1,1011 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="no-js">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Rhythm Mittal - Full-Stack Developer from Jaipur, India. Building scalable web applications with strong backend systems."
-    />
-    <meta
-      name="keywords"
-      content="Full-Stack Developer, Backend Developer, JavaScript, Node.js, Express, Django, REST APIs, Web Developer, Jaipur"
+      content="Rhythm Mittal — Web Developer from New Delhi, India. Building frontend applications with JavaScript and React."
     />
     <meta name="author" content="Rhythm Mittal" />
-
-    <meta property="og:title" content="Rhythm Mittal | Full-Stack Developer" />
+    <meta property="og:title" content="Rhythm Mittal | Web Developer" />
     <meta
       property="og:description"
-      content="Full-Stack Developer building scalable backend-driven web applications"
+      content="Web Developer building frontend applications with JavaScript and React"
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://rhythmmittal19.github.io" />
+    <title>Rhythm Mittal | Web Developer</title>
 
-    <title>Rhythm Mittal | Full-Stack Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
-    <!-- Navigation -->
-    <nav class="nav">
-      <div class="nav-container">
-        <a href="#" class="nav-logo">RM</a>
-        <ul class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-    </nav>
+    <!-- ═══════════════════════════════════════════
+         BACKGROUND LAYERS
+         ═══════════════════════════════════════════ -->
+    <div class="aurora" aria-hidden="true">
+      <div class="aurora-orb aurora-orb--1"></div>
+      <div class="aurora-orb aurora-orb--2"></div>
+      <div class="aurora-orb aurora-orb--3"></div>
+      <div class="aurora-orb aurora-orb--4"></div>
+    </div>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="mouse-glow" id="mouseGlow" aria-hidden="true"></div>
 
-    <!-- Hero Section -->
-    <header class="hero">
-      <div class="hero-content">
-        <p class="hero-greeting">Hi, I'm</p>
-        <h1 class="hero-name">Rhythm Mittal</h1>
-        <h2 class="hero-title">Full-Stack Developer</h2>
-        <p class="hero-description">
-          I build scalable, backend-driven web applications with clean and
-          intuitive user interfaces.
-          <br />Based in New Delhi, India.
-        </p>
-        <div class="hero-cta">
-          <a href="#projects" class="btn btn-primary">View My Work</a>
-          <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-        </div>
-      </div>
-    </header>
+    <!-- ═══════════════════════════════════════════
+         SCROLL PROGRESS
+         ═══════════════════════════════════════════ -->
+    <div class="scroll-progress" aria-hidden="true">
+      <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+    </div>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-      <div class="container">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-content">
-          <p>
-            I'm a self-taught full-stack developer passionate about building web
-            applications that solve real problems. I've built
-            <strong>25+ projects</strong> spanning frontend interfaces, backend
-            APIs, and full-stack systems.
-          </p>
-          <p>
-            I believe in learning by building. I focus on writing clean,
-            maintainable code and designing systems that scale beyond just the
-            UI.
-          </p>
-
-          <div class="skills">
-            <h3 class="skills-title">Technologies I work with:</h3>
-            <ul class="skills-list">
-              <li class="skill-item">JavaScript (ES6+)</li>
-              <li class="skill-item">Node.js</li>
-              <li class="skill-item">Express.js</li>
-              <li class="skill-item">REST APIs</li>
-              <li class="skill-item">Python</li>
-              <li class="skill-item">Django</li>
-              <li class="skill-item">Databases (SQL / NoSQL)</li>
-              <li class="skill-item">HTML5</li>
-              <li class="skill-item">CSS3</li>
-              <li class="skill-item">Git & GitHub</li>
-              <li class="skill-item">Authentication & Authorization</li>
-              <li class="skill-item">DOM Manipulation</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-      <div class="container">
-        <h2 class="section-title">Featured Projects</h2>
-        <div class="projects-grid">
-          <!-- Project 1: Weather App -->
-          <article class="project-card">
-            <div class="project-image">
-              <div class="project-placeholder">🌤️</div>
-            </div>
-            <div class="project-info">
-              <h3 class="project-title">Weather App</h3>
-              <p class="project-description">
-                Full-stack weather application consuming OpenWeather API with
-                async data handling, error management, and scalable frontend
-                architecture.
-              </p>
-              <ul class="project-tech">
-                <li>JavaScript</li>
-                <li>Fetch API</li>
-                <li>Async/Await</li>
-              </ul>
-              <div class="project-links">
-                <a
-                  href="https://github.com/RhythmMittal19/rhythmmittal19.github.io/tree/main/projects/weather-app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-link"
-                >
-                  GitHub ↗
-                </a>
-                <a
-                  href="./projects/weather-app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-link"
-                >
-                  Live Demo ↗
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project 2: GitHub User Finder -->
-          <article class="project-card">
-            <div class="project-image">
-              <div class="project-placeholder">👨‍💻</div>
-            </div>
-            <div class="project-info">
-              <h3 class="project-title">GitHub User Finder</h3>
-              <p class="project-description">
-                Search GitHub profiles using the GitHub API. Displays user
-                stats, repositories, and activity with a clean interface.
-              </p>
-              <ul class="project-tech">
-                <li>JavaScript</li>
-                <li>GitHub API</li>
-                <li>Async/Await</li>
-              </ul>
-              <div class="project-links">
-                <a
-                  href="https://github.com/RhythmMittal19/rhythmmittal19.github.io/tree/main/projects/github-user-finder"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-link"
-                >
-                  GitHub ↗
-                </a>
-                <a
-                  href="./projects/github-user-finder/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-link"
-                >
-                  Live Demo ↗
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project 3: Multi-Step Form -->
-          <article class="project-card">
-            <div class="project-image">
-              <div class="project-placeholder">📋</div>
-            </div>
-            <div class="project-info">
-              <h3 class="project-title">Multi-Step Form</h3>
-              <p class="project-description">
-                A wizard-style form with progress tracking, field validation,
-                and smooth transitions between steps.
-              </p>
-              <ul class="project-tech">
-                <li>JavaScript</li>
-                <li>Form Validation</li>
-                <li>CSS Transitions</li>
-              </ul>
-              <div class="project-links">
-                <a
-                  href="https://github.com/RhythmMittal19/rhythmmittal19.github.io/tree/main/projects/multi-step-form"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-link"
-                >
-                  GitHub ↗
-                </a>
-                <a
-                  href="./projects/multi-step-form/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-link"
-                >
-                  Live Demo ↗
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project 4: Notes App -->
-          <article class="project-card">
-            <div class="project-image">
-              <div class="project-placeholder">📝</div>
-            </div>
-            <div class="project-info">
-              <h3 class="project-title">Notes App</h3>
-              <p class="project-description">
-                Persistent notes application with localStorage. Create, edit,
-                Full-stack notes application implementing CRUD operations with
-                persistent storage and structured data handling.
-              </p>
-              <ul class="project-tech">
-                <li>JavaScript</li>
-                <li>LocalStorage</li>
-                <li>CRUD Operations</li>
-              </ul>
-              <div class="project-links">
-                <a
-                  href="https://github.com/RhythmMittal19/rhythmmittal19.github.io/tree/main/projects/notes-app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-link"
-                >
-                  GitHub ↗
-                </a>
-                <a
-                  href="./projects/notes-app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-link"
-                >
-                  Live Demo ↗
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project 5: Todo List -->
-          <article class="project-card">
-            <div class="project-image">
-              <div class="project-placeholder">✅</div>
-            </div>
-            <div class="project-info">
-              <h3 class="project-title">Todo List</h3>
-              <p class="project-description">
-                Classic todo application with add, complete, and delete
-                functionality. Features persistent storage and clean UI.
-              </p>
-              <ul class="project-tech">
-                <li>JavaScript</li>
-                <li>LocalStorage</li>
-                <li>DOM Manipulation</li>
-              </ul>
-              <div class="project-links">
-                <a
-                  href="https://github.com/RhythmMittal19/rhythmmittal19.github.io/tree/main/projects/todo-list"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-link"
-                >
-                  GitHub ↗
-                </a>
-                <a
-                  href="./projects/todo-list/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-link"
-                >
-                  Live Demo ↗
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project 6: Form Validator -->
-          <article class="project-card">
-            <div class="project-image">
-              <div class="project-placeholder">🔒</div>
-            </div>
-            <div class="project-info">
-              <h3 class="project-title">Form Validator</h3>
-              <p class="project-description">
-                Multi-field form validation with regex patterns. Real-time
-                feedback, error states, and password strength checking.
-              </p>
-              <ul class="project-tech">
-                <li>JavaScript</li>
-                <li>Regex</li>
-                <li>Form Handling</li>
-              </ul>
-              <div class="project-links">
-                <a
-                  href="https://github.com/RhythmMittal19/rhythmmittal19.github.io/tree/main/projects/form-validator"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-link"
-                >
-                  GitHub ↗
-                </a>
-                <a
-                  href="./projects/form-validator/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="project-link"
-                >
-                  Live Demo ↗
-                </a>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="projects-more">
-          <a
-            href="https://github.com/RhythmMittal19?tab=repositories"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-secondary"
-          >
-            View All Projects on GitHub ↗
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-      <div class="container">
-        <h2 class="section-title">Get In Touch</h2>
-        <div class="contact-content">
-          <p class="contact-text">
-            I'm currently looking for full-time Full-Stack or Backend Engineer
-            opportunities. I'm also open to discussing internship roles if
-            relevant.
-          </p>
-          <a
-            href="mailto:rhythmmittal19@gmail.com"
-            class="btn btn-primary btn-large"
-          >
-            Say Hello 👋
-          </a>
-
-          <div class="contact-links">
+    <!-- ═══════════════════════════════════════════
+         NAVIGATION
+         ═══════════════════════════════════════════ -->
+    <nav class="nav" id="nav">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo" aria-label="Home">
+          rm<span class="accent-dot">.</span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#upcoming" class="nav-link">Upcoming</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+          <li>
             <a
               href="https://github.com/RhythmMittal19"
               target="_blank"
               rel="noopener noreferrer"
-              class="contact-link"
+              class="nav-link nav-link--ext"
             >
               GitHub
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="7" y1="17" x2="17" y2="7" />
+                <polyline points="7 7 17 7 17 17" />
+              </svg>
             </a>
-            <a
-              href="https://www.linkedin.com/in/rhythmmittal"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="contact-link"
+          </li>
+        </ul>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+        >
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════
+         HERO
+         ═══════════════════════════════════════════ -->
+    <header class="hero" id="hero">
+      <canvas
+        class="hero-particles"
+        id="heroParticles"
+        aria-hidden="true"
+      ></canvas>
+
+      <div class="hero-inner">
+        <div class="hero-content">
+          <p class="hero-eyebrow" data-animate="hero">
+            <span class="hero-eyebrow-rule"></span>
+            Hi, I'm
+          </p>
+
+          <h1 class="hero-name" data-animate="hero">
+            <span class="name-row"
+              ><span class="name-word" data-split>Rhythm</span></span
             >
-              LinkedIn
+            <span class="name-row"
+              ><span class="name-word" data-split>Mittal</span></span
+            >
+          </h1>
+
+          <p class="hero-role" data-animate="hero">
+            <span class="typewriter-wrapper">
+              <span class="typewriter" id="typewriter"></span>
+              <span class="typewriter-cursor" aria-hidden="true"></span>
+            </span>
+          </p>
+
+          <p class="hero-desc" data-animate="hero">
+            I build web applications with JavaScript. Currently learning React
+            and working toward full-stack development and
+            <span class="highlight">backend engineering</span>. Based in New
+            Delhi, India.
+          </p>
+
+          <div class="hero-actions" data-animate="hero">
+            <a href="#projects" class="btn btn--primary" data-magnetic>
+              <span class="btn-text">View My Work</span>
+              <span class="btn-icon">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </span>
             </a>
+            <a href="#contact" class="btn btn--outline" data-magnetic
+              >Get In Touch</a
+            >
+          </div>
+        </div>
+
+        <div class="hero-scroll" data-animate="hero" aria-hidden="true">
+          <span class="hero-scroll-text">Scroll</span>
+          <span class="hero-scroll-line"></span>
+        </div>
+      </div>
+
+      <div class="hero-watermark" aria-hidden="true">'25</div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════
+         ABOUT — 01  (Bento Grid)
+         ═══════════════════════════════════════════ -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-head" data-animate="fade-up">
+          <span class="section-num">01</span>
+          <span class="section-rule"></span>
+          <h2 class="section-heading">About</h2>
+        </div>
+
+        <div class="bento-grid">
+          <!-- Bio — spans 2 cols -->
+          <div
+            class="bento-item bento-bio glass-card"
+            data-animate="fade-up"
+            data-glow
+          >
+            <div class="glass-card-border"></div>
+            <p>
+              I am a self-taught web developer who learns by building. Over the
+              past several months I have gone from zero to building modular
+              JavaScript applications with API integration, persistent storage,
+              and responsive interfaces.
+            </p>
+            <p>
+              I focus on writing clean, maintainable code with proper separation
+              of concerns. My recent projects use ES modules, event delegation,
+              and custom caching layers.
+            </p>
+            <p>
+              I am currently learning React and plan to move into backend
+              development with Node.js, Express, and databases. My long-term
+              goal is to become a well-rounded
+              <span class="highlight">backend engineer</span>.
+            </p>
+          </div>
+
+          <!-- Languages -->
+          <div
+            class="bento-item bento-skill glass-card"
+            data-animate="fade-up"
+            data-tilt
+            data-glow
+          >
+            <div class="glass-card-border"></div>
+            <div class="bento-skill-icon">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
+              </svg>
+            </div>
+            <h4>Languages</h4>
+            <ul>
+              <li>JavaScript (ES6+)</li>
+              <li>HTML5</li>
+              <li>CSS3</li>
+              <li>Python</li>
+            </ul>
+          </div>
+
+          <!-- Frontend -->
+          <div
+            class="bento-item bento-skill glass-card"
+            data-animate="fade-up"
+            data-tilt
+            data-glow
+          >
+            <div class="glass-card-border"></div>
+            <div class="bento-skill-icon">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                <line x1="8" y1="21" x2="16" y2="21" />
+                <line x1="12" y1="17" x2="12" y2="21" />
+              </svg>
+            </div>
+            <h4>Frontend</h4>
+            <ul>
+              <li>DOM Manipulation</li>
+              <li>ES Modules</li>
+              <li>Responsive Design</li>
+              <li>CSS Grid / Flexbox</li>
+            </ul>
+          </div>
+
+          <!-- Tools -->
+          <div
+            class="bento-item bento-skill glass-card"
+            data-animate="fade-up"
+            data-tilt
+            data-glow
+          >
+            <div class="glass-card-border"></div>
+            <div class="bento-skill-icon">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
+                />
+              </svg>
+            </div>
+            <h4>Tools</h4>
+            <ul>
+              <li>Git &amp; GitHub</li>
+              <li>REST APIs</li>
+              <li>LocalStorage</li>
+              <li>Linux / WSL</li>
+            </ul>
+          </div>
+
+          <!-- Learning -->
+          <div
+            class="bento-item bento-skill glass-card"
+            data-animate="fade-up"
+            data-tilt
+            data-glow
+          >
+            <div class="glass-card-border"></div>
+            <div class="bento-skill-icon">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+              </svg>
+            </div>
+            <h4>Learning</h4>
+            <ul>
+              <li>React</li>
+              <li>Node.js</li>
+              <li>TypeScript</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="about-stats glass-card" data-animate="fade-up" data-glow>
+          <div class="glass-card-border"></div>
+          <div class="stat">
+            <span class="stat-num" data-count="25">0</span>
+            <span class="stat-label">Projects Built</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num" data-count="6">0</span>
+            <span class="stat-label">APIs Integrated</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num" data-count="500">0</span>
+            <span class="stat-plus">+</span>
+            <span class="stat-label">Commits</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num" data-count="7">0</span>
+            <span class="stat-label">Months Learning</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <!-- ═══════════════════════════════════════════
+         PROJECTS — 02  (Card Grid)
+         ═══════════════════════════════════════════ -->
+    <section id="projects" class="section section--alt">
       <div class="container">
-        <p>Built with 💻 by Rhythm Mittal — Full-Stack Developer</p>
-        <p class="footer-note">© 2025 • New Delhi, India</p>
+        <div class="section-head" data-animate="fade-up">
+          <span class="section-num">02</span>
+          <span class="section-rule"></span>
+          <h2 class="section-heading">Projects</h2>
+        </div>
+
+        <p class="section-desc" data-animate="fade-up">
+          Selected work — each lives in its own repository with a detailed
+          README.
+        </p>
+
+        <div class="projects-grid">
+          <!-- Featured -->
+          <article
+            class="project-card project-card--featured glass-card"
+            data-animate="fade-up"
+            data-tilt
+            data-glow
+          >
+            <div class="glass-card-border"></div>
+            <div class="project-card-accent"></div>
+            <div class="project-card-inner">
+              <div class="project-card-top">
+                <span class="project-num">01</span>
+                <span class="project-type">Full App</span>
+              </div>
+              <h3 class="project-title">Dictionarius</h3>
+              <p class="project-desc">
+                A dictionary application with autocomplete search, favorites,
+                A-Z index overlay, Word of the Day, and theme switching. Built
+                with 7 ES modules, in-memory API caching, debounced input, event
+                delegation, and toast notifications. Full keyboard navigation
+                and screen reader support.
+              </p>
+              <div class="project-tags">
+                <span>JavaScript</span><span>ES Modules</span
+                ><span>Dictionary API</span><span>LocalStorage</span
+                ><span>Accessibility</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://rhythmmittal19.github.io/dictionary-app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link project-link--live"
+                >
+                  Live Demo
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
+                </a>
+                <a
+                  href="https://github.com/RhythmMittal19/dictionary-app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link"
+                >
+                  Source
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 02 -->
+          <article
+            class="project-card glass-card"
+            data-animate="fade-up"
+            data-tilt
+            data-glow
+          >
+            <div class="glass-card-border"></div>
+            <div class="project-card-accent"></div>
+            <div class="project-card-inner">
+              <div class="project-card-top">
+                <span class="project-num">02</span>
+                <span class="project-type">API App</span>
+              </div>
+              <h3 class="project-title">GitHub User Finder</h3>
+              <p class="project-desc">
+                Search GitHub profiles via the GitHub API. Displays user stats,
+                repositories, and contribution data. Modular architecture with
+                separate API, storage, UI, and utility modules.
+              </p>
+              <div class="project-tags">
+                <span>JavaScript</span><span>GitHub API</span
+                ><span>ES Modules</span><span>Async/Await</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://rhythmmittal19.github.io/github-user-finder/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link project-link--live"
+                >
+                  Live Demo
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
+                </a>
+                <a
+                  href="https://github.com/RhythmMittal19/github-user-finder"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link"
+                >
+                  Source
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 03 -->
+          <article
+            class="project-card glass-card"
+            data-animate="fade-up"
+            data-tilt
+            data-glow
+          >
+            <div class="glass-card-border"></div>
+            <div class="project-card-accent"></div>
+            <div class="project-card-inner">
+              <div class="project-card-top">
+                <span class="project-num">03</span>
+                <span class="project-type">API App</span>
+              </div>
+              <h3 class="project-title">Weather App</h3>
+              <p class="project-desc">
+                Real-time weather consuming the OpenWeatherMap API. Displays
+                current conditions, temperature, humidity, and wind. Async data
+                fetching, error management, and responsive layout.
+              </p>
+              <div class="project-tags">
+                <span>JavaScript</span><span>OpenWeather API</span
+                ><span>Fetch API</span><span>Async/Await</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://rhythmmittal19.github.io/weather-app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link project-link--live"
+                >
+                  Live Demo
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
+                </a>
+                <a
+                  href="https://github.com/RhythmMittal19/weather-app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link"
+                >
+                  Source
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 04 -->
+          <article
+            class="project-card glass-card"
+            data-animate="fade-up"
+            data-tilt
+            data-glow
+          >
+            <div class="glass-card-border"></div>
+            <div class="project-card-accent"></div>
+            <div class="project-card-inner">
+              <div class="project-card-top">
+                <span class="project-num">04</span>
+                <span class="project-type">Utility</span>
+              </div>
+              <h3 class="project-title">Todo List</h3>
+              <p class="project-desc">
+                Task management with full CRUD operations. Persistent storage
+                via localStorage, filter by completion status, and clean
+                responsive interface.
+              </p>
+              <div class="project-tags">
+                <span>JavaScript</span><span>LocalStorage</span><span>CRUD</span
+                ><span>DOM Manipulation</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://rhythmmittal19.github.io/todo-list/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link project-link--live"
+                >
+                  Live Demo
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
+                </a>
+                <a
+                  href="https://github.com/RhythmMittal19/todo-list"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link"
+                >
+                  Source
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 05 -->
+          <article
+            class="project-card glass-card"
+            data-animate="fade-up"
+            data-tilt
+            data-glow
+          >
+            <div class="glass-card-border"></div>
+            <div class="project-card-accent"></div>
+            <div class="project-card-inner">
+              <div class="project-card-top">
+                <span class="project-num">05</span>
+                <span class="project-type">UX</span>
+              </div>
+              <h3 class="project-title">Multi-Step Form</h3>
+              <p class="project-desc">
+                Wizard-style form with step-by-step progression, field
+                validation, progress indicator, and smooth transitions.
+                Real-time validation feedback.
+              </p>
+              <div class="project-tags">
+                <span>JavaScript</span><span>Form Validation</span
+                ><span>CSS Transitions</span><span>UX Patterns</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://rhythmmittal19.github.io/multi-step-form/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link project-link--live"
+                >
+                  Live Demo
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
+                </a>
+                <a
+                  href="https://github.com/RhythmMittal19/multi-step-form"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link"
+                >
+                  Source
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="projects-note" data-animate="fade-up">
+          <p>
+            These are featured projects. I also maintain a
+            <a
+              href="https://github.com/RhythmMittal19/git-gud"
+              target="_blank"
+              rel="noopener noreferrer"
+              >learning repository</a
+            >
+            with 25+ exercises and smaller builds.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         UPCOMING — 03
+         ═══════════════════════════════════════════ -->
+    <section id="upcoming" class="section">
+      <div class="container">
+        <div class="section-head" data-animate="fade-up">
+          <span class="section-num">03</span>
+          <span class="section-rule"></span>
+          <h2 class="section-heading">Upcoming</h2>
+        </div>
+
+        <p class="section-desc" data-animate="fade-up">
+          What I'm building next — countdowns to estimated completion.
+        </p>
+
+        <div class="upcoming-grid">
+          <!-- Aether -->
+          <div
+            class="upcoming-card glass-card"
+            data-animate="fade-up"
+            data-target="2025-08-15T00:00:00"
+            data-tilt
+            data-glow
+          >
+            <div class="glass-card-border"></div>
+            <div class="upcoming-status upcoming-status--progress">
+              <span class="upcoming-status-dot"></span>In Progress
+            </div>
+            <div class="upcoming-icon">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                />
+              </svg>
+            </div>
+            <h3 class="upcoming-title">Aether</h3>
+            <p class="upcoming-desc">
+              An AI-powered chatbot interface built with React. Exploring
+              component architecture, state management, and modern UI patterns.
+            </p>
+            <div class="upcoming-tags">
+              <span>React</span><span>Vite</span><span>CSS Modules</span
+              ><span>API Integration</span>
+            </div>
+            <div class="upcoming-countdown">
+              <span class="countdown-label">Estimated Completion</span>
+              <div class="countdown-boxes">
+                <div class="countdown-box">
+                  <span class="countdown-num" data-unit="days">--</span
+                  ><span class="countdown-unit">Days</span>
+                </div>
+                <div class="countdown-box">
+                  <span class="countdown-num" data-unit="hours">--</span
+                  ><span class="countdown-unit">Hrs</span>
+                </div>
+                <div class="countdown-box">
+                  <span class="countdown-num" data-unit="minutes">--</span
+                  ><span class="countdown-unit">Min</span>
+                </div>
+                <div class="countdown-box">
+                  <span class="countdown-num" data-unit="seconds">--</span
+                  ><span class="countdown-unit">Sec</span>
+                </div>
+              </div>
+            </div>
+            <div class="upcoming-progress">
+              <div class="upcoming-progress-bar" style="--progress: 25%"></div>
+            </div>
+          </div>
+
+          <!-- Component Showcase -->
+          <div
+            class="upcoming-card glass-card"
+            data-animate="fade-up"
+            data-target="2025-09-01T00:00:00"
+            data-tilt
+            data-glow
+          >
+            <div class="glass-card-border"></div>
+            <div class="upcoming-status upcoming-status--progress">
+              <span class="upcoming-status-dot"></span>In Progress
+            </div>
+            <div class="upcoming-icon">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+              </svg>
+            </div>
+            <h3 class="upcoming-title">Component Showcase</h3>
+            <p class="upcoming-desc">
+              A living design system catalog. Interactive component playground
+              with buttons, cards, badges, inputs, and more.
+            </p>
+            <div class="upcoming-tags">
+              <span>React</span><span>Vite</span><span>Design Systems</span
+              ><span>CSS Modules</span>
+            </div>
+            <div class="upcoming-countdown">
+              <span class="countdown-label">Estimated Completion</span>
+              <div class="countdown-boxes">
+                <div class="countdown-box">
+                  <span class="countdown-num" data-unit="days">--</span
+                  ><span class="countdown-unit">Days</span>
+                </div>
+                <div class="countdown-box">
+                  <span class="countdown-num" data-unit="hours">--</span
+                  ><span class="countdown-unit">Hrs</span>
+                </div>
+                <div class="countdown-box">
+                  <span class="countdown-num" data-unit="minutes">--</span
+                  ><span class="countdown-unit">Min</span>
+                </div>
+                <div class="countdown-box">
+                  <span class="countdown-num" data-unit="seconds">--</span
+                  ><span class="countdown-unit">Sec</span>
+                </div>
+              </div>
+            </div>
+            <div class="upcoming-progress">
+              <div class="upcoming-progress-bar" style="--progress: 15%"></div>
+            </div>
+          </div>
+
+          <!-- RESTful API -->
+          <div
+            class="upcoming-card glass-card"
+            data-animate="fade-up"
+            data-target="2025-10-15T00:00:00"
+            data-tilt
+            data-glow
+          >
+            <div class="glass-card-border"></div>
+            <div class="upcoming-status upcoming-status--planning">
+              Planning
+            </div>
+            <div class="upcoming-icon">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+                <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+                <line x1="6" y1="6" x2="6.01" y2="6" />
+                <line x1="6" y1="18" x2="6.01" y2="18" />
+              </svg>
+            </div>
+            <h3 class="upcoming-title">RESTful API</h3>
+            <p class="upcoming-desc">
+              My first backend project. A RESTful API with authentication,
+              database integration, and proper error handling.
+            </p>
+            <div class="upcoming-tags">
+              <span>Node.js</span><span>Express</span><span>MongoDB</span
+              ><span>JWT</span>
+            </div>
+            <div class="upcoming-countdown">
+              <span class="countdown-label">Estimated Completion</span>
+              <div class="countdown-boxes">
+                <div class="countdown-box">
+                  <span class="countdown-num" data-unit="days">--</span
+                  ><span class="countdown-unit">Days</span>
+                </div>
+                <div class="countdown-box">
+                  <span class="countdown-num" data-unit="hours">--</span
+                  ><span class="countdown-unit">Hrs</span>
+                </div>
+                <div class="countdown-box">
+                  <span class="countdown-num" data-unit="minutes">--</span
+                  ><span class="countdown-unit">Min</span>
+                </div>
+                <div class="countdown-box">
+                  <span class="countdown-num" data-unit="seconds">--</span
+                  ><span class="countdown-unit">Sec</span>
+                </div>
+              </div>
+            </div>
+            <div class="upcoming-progress">
+              <div class="upcoming-progress-bar" style="--progress: 5%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         CONTACT — 04
+         ═══════════════════════════════════════════ -->
+    <section id="contact" class="section section--alt">
+      <div class="container">
+        <div class="section-head section-head--center" data-animate="fade-up">
+          <span class="section-num">04</span>
+          <span class="section-rule"></span>
+          <h2 class="section-heading">Contact</h2>
+        </div>
+
+        <div class="contact-content" data-animate="fade-up">
+          <h3 class="contact-title">Let's work together</h3>
+          <p class="contact-text">
+            I am looking for developer opportunities, including internships. If
+            you have a role that might be a fit, or just want to say hello, my
+            inbox is open.
+          </p>
+          <a
+            href="mailto:rhythmmittal19@gmail.com"
+            class="btn btn--primary btn--lg btn--glow"
+            data-magnetic
+          >
+            <span class="btn-text">rhythmmittal19@gmail.com</span>
+          </a>
+          <div class="contact-socials">
+            <a
+              href="https://github.com/RhythmMittal19"
+              target="_blank"
+              rel="noopener noreferrer"
+              >GitHub</a
+            >
+            <span class="sep" aria-hidden="true">·</span>
+            <a
+              href="https://www.linkedin.com/in/rhythmmittal"
+              target="_blank"
+              rel="noopener noreferrer"
+              >LinkedIn</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         FOOTER
+         ═══════════════════════════════════════════ -->
+    <footer class="footer">
+      <div class="container footer-inner">
+        <p class="footer-text">
+          Designed &amp; built by <span class="highlight">Rhythm Mittal</span>
+        </p>
+        <p class="footer-sub">New Delhi, India</p>
       </div>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
