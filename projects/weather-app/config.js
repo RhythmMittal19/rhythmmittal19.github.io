@@ -1,8 +1,9 @@
-// config.js - This file contains your REAL API key
-// ⚠️ This file should NEVER be pushed to GitHub!
+// config.js — add your own OpenWeatherMap API key to run this demo locally.
+// Get a free key at https://openweathermap.org/api
+// The previously committed key has been revoked.
 
 const CONFIG = {
-  API_KEY: "b9889f2ee349f72b109948e927ba0a72", // Your real key
+  API_KEY: null, // e.g. "your-openweathermap-key"
   BASE_URL: "https://api.openweathermap.org/data/2.5",
   ICON_URL: "https://openweathermap.org/img/wn",
 };

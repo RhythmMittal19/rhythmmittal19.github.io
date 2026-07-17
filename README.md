@@ -4,7 +4,7 @@
 ![GitHub Pages](https://img.shields.io/badge/Deployed-GitHub%20Pages-blue?logo=github)
 ![Last Commit](https://img.shields.io/github/last-commit/RhythmMittal19/rhythmmittal19.github.io)
 
-My personal portfolio website. Built with vanilla HTML, CSS, and JavaScript — no frameworks, no templates, no AI-generated code.
+My personal portfolio website. Built with vanilla HTML, CSS, and JavaScript — no frameworks, no templates.
 
 **Live site:** [rhythmmittal19.github.io](https://rhythmmittal19.github.io)
 
